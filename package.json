@@ -14,15 +14,15 @@
     "@mui/styled-engine-sc": "^5.6.1",
     "@reduxjs/toolkit": "^1.8.1",
     "next": "12.1.4",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-redux": "^7.2.8",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
-    "@types/react": "18.0.2",
+    "@types/react": "^17.0.44",
     "@types/react-dom": "18.0.0",
     "@types/react-redux": "^7.1.23",
     "eslint": "8.13.0",
