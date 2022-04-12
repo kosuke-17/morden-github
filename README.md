@@ -16,3 +16,7 @@ npm i -D @types/react-redux
 npm install @mui/material @mui/styled-engine-sc styled-components
 icon の導入
 npm install @mui/icons-material
+
+css in js のエラーを解消
+https://zenn.dev/nbr41to/articles/c0c691653e3d55
+https://nextjs.org/docs/basic-features/built-in-css-support#css-in-js
