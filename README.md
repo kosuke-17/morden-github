@@ -9,3 +9,9 @@ redux のセットアップ
 
 npm i @reduxjs/toolkit react-redux redux-persist
 npm i -D @types/react-redux
+
+MUI と styled-components の導入
+
+npm install @mui/material @mui/styled-engine-sc styled-components
+icon の導入
+npm install @mui/icons-material
