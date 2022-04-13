@@ -60,8 +60,10 @@ const Header = () => {
         .max(10, "10字以下で入力してください")
         .required("空欄です"),
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       alert(JSON.stringify(values, null, 2));
+      // 引数で受け取ったメソッドでformの値をリセットする
+      resetForm();
     },
   });
   return (
