@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 
-// クエリ文用変数
+// クエリ文
 const GET_SAMPLE = gql`
   {
     viewer {

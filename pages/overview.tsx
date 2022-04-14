@@ -8,7 +8,7 @@ import client from "../apollo-client";
 import { gql } from "@apollo/client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
-// クエリ文用変数
+// クエリ文
 const GET_SAMPLE = gql`
   {
     viewer {

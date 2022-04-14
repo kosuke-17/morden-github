@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  // ApolloProvider
   return (
     <div>
       <ApolloProvider client={client}>
