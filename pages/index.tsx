@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: NextPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  return <div className={styles.container}>ログイン：{data.viewer.login}</div>;
+  return <div className={styles.container}></div>;
 };
 
 export default Home;

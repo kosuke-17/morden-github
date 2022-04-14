@@ -4,100 +4,65 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import { gql, useQuery } from "@apollo/client";
+import PinnedRepo from "./molecules/PinnedRepo";
+import Contributions from "./molecules/Contributions";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
+// const bull = (
+//   <Box
+//     component="span"
+//     sx={{
+//       boxShadow: 3,
+//       display: "inline-block",
+//       mx: "2px",
+//       transform: "scale(0.8)",
+//     }}
+//   >
+//     •
+//   </Box>
+// );
 
-const Overview = () => {
+// クエリ文
+// const GET_SAMPLE = gql`
+//   {
+//     viewer {
+//       login
+//     }
+//   }
+// `;
+
+const Overview: React.FC = () => {
+  //   const { loading, error, data } = useQuery(GET_SAMPLE);
+  //   // クエリ実行中の表示
+  //   if (loading) return <p>Loading ...</p>;
+  //   // エラー発生時（レスポンスがないとき）の表示
+  //   if (error) return <p>ERR!!!{error.message}</p>;
+  //   console.log(data);
+  //   const { apples } = data;
   return (
     <>
       <div>Popular repositories</div>
       <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                modern-github
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                githubをモダンに作り変えてみた
-              </Typography>
-              <Typography variant="body2">●React</Typography>
-            </CardContent>
-          </Card>
+          <PinnedRepo />
         </Grid>
         <Grid item xs={6}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                modern-github
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                githubをモダンに作り変えてみた
-              </Typography>
-              <Typography variant="body2">●React</Typography>
-            </CardContent>
-          </Card>
+          <PinnedRepo />
         </Grid>
         <Grid item xs={6}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                modern-github
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                githubをモダンに作り変えてみた
-              </Typography>
-              <Typography variant="body2">●React</Typography>
-            </CardContent>
-          </Card>
+          <PinnedRepo />
         </Grid>
         <Grid item xs={6}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                modern-github
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                githubをモダンに作り変えてみた
-              </Typography>
-              <Typography variant="body2">●React</Typography>
-            </CardContent>
-          </Card>
+          <PinnedRepo />
         </Grid>
         <Grid item xs={6}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                modern-github
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                githubをモダンに作り変えてみた
-              </Typography>
-              <Typography variant="body2">●React</Typography>
-            </CardContent>
-          </Card>
+          <PinnedRepo />
         </Grid>
         <Grid item xs={6}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                modern-github
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                githubをモダンに作り変えてみた
-              </Typography>
-              <Typography variant="body2">●React</Typography>
-            </CardContent>
-          </Card>
+          <PinnedRepo />
         </Grid>
       </Grid>
+      <Contributions />
     </>
   );
 };
