@@ -6,6 +6,7 @@ import avatorSample from "../public/avatar.jpg";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { LoginType } from "../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
@@ -69,7 +70,11 @@ const ErrCard = styled.div`
 // ----------------------------------------------
 
 // ヘッダーコンポーネント
-const Header: React.FC = () => {
+const Header: React.FC<LoginType> = ({ isLogin, setIsLogin }) => {
+  // ログアウトのクリック
+  const logoutClick = () => {
+    setIsLogin(!isLogin);
+  };
   // 入力フォームをformikのhooksで実装
   // 10文字制限と空白のバリデーション
   const formik = useFormik({
@@ -116,6 +121,7 @@ const Header: React.FC = () => {
       </HeaderCenter>
 
       <HeaderRight>
+        <button onClick={logoutClick}>ログアウト</button>
         <Image src={avatorSample} alt="アバターロゴ" width={40} height={40} />
       </HeaderRight>
     </TopHeaderLayout>

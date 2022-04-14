@@ -1,11 +1,12 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { Header } from "../components";
+import { Header, Login } from "../components";
 import styled from "styled-components";
 import ProfileS from "../components/ProfileS";
 import { NavBar } from "../components";
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
+import { useState } from "react";
 
 const Layout = styled.div`
   height: 100vh;
@@ -32,21 +33,26 @@ const UnderLine = styled.div`
 `;
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <Layout>
-      <ApolloProvider client={client}>
-        <Header />
-        <UnderLine />
-        <Body>
-          <BodyLeft>
-            <ProfileS />
-          </BodyLeft>
-          <BodyRight>
-            <NavBar />
-            <Component {...pageProps} />
-          </BodyRight>
-        </Body>
-      </ApolloProvider>
+      {isLogin ? (
+        <ApolloProvider client={client}>
+          <Header isLogin={isLogin} setIsLogin={setIsLogin} />
+          <UnderLine />
+          <Body>
+            <BodyLeft>
+              <ProfileS />
+            </BodyLeft>
+            <BodyRight>
+              <NavBar />
+              <Component {...pageProps} />
+            </BodyRight>
+          </Body>
+        </ApolloProvider>
+      ) : (
+        <Login isLogin={isLogin} setIsLogin={setIsLogin} />
+      )}
     </Layout>
   );
 };
