@@ -2,6 +2,7 @@ import { Tabs, Tab } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import { NabPanel } from "./atoms";
+import Overview from "./Overview";
 
 //  styled-components
 // ----------------------------------------------
@@ -34,7 +35,7 @@ const NavBar: React.FC = () => {
         </Tabs>
       </NavItems>
       <NabPanel value={value} index={0}>
-        Overview
+        <Overview />
       </NabPanel>
       <NabPanel value={value} index={1}>
         Repositoryies

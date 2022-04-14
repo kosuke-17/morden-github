@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
     query: GET_SAMPLE,
   });
   // データ取得確認用console.log
-  console.log(data);
+  // console.log(data);
 
   return {
     props: { data },
@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: NextPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  return <div className={styles.container}>ログイン：{data.viewer.login}</div>;
+  return <div className={styles.container}></div>;
 };
 
 export default Home;
