@@ -1,9 +1,10 @@
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import client from "../apollo-client";
 
-// クエリ文
+// クエリ文用変数
 const GET_SAMPLE = gql`
   {
     viewer {
