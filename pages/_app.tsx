@@ -1,14 +1,11 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Header } from "../components";
-<<<<<<< HEAD
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
-=======
 import styled from "styled-components";
 import ProfileS from "../components/profileS";
 import { NavBar } from "../components";
->>>>>>> main
 
 const Layout = styled.div`
   height: 100vh;

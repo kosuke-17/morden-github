@@ -17,11 +17,8 @@
     "@mui/styled-engine-sc": "^5.6.1",
     "@reduxjs/toolkit": "^1.8.1",
     "babel-plugin-styled-components": "^2.0.7",
-<<<<<<< HEAD
     "graphql": "^16.3.0",
-=======
     "formik": "^2.2.9",
->>>>>>> main
     "next": "12.1.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
