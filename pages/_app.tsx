@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Header } from "../components";
+import { ApolloProvider } from "@apollo/client";
+import client from "../apollo-client";
 import styled from "styled-components";
 import ProfileS from "../components/profileS";
 import { NavBar } from "../components";
@@ -31,7 +33,10 @@ const UnderLine = styled.div`
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
+
     <Layout>
+            <ApolloProvider client={client}>
+
       <Header />
       <UnderLine />
       <Body>
@@ -43,7 +48,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
         </BodyRight>
       </Body>
+      </ApolloProvider>
+
     </Layout>
+
   );
 };
 
