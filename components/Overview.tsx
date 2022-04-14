@@ -30,15 +30,35 @@ import Contributions from "./molecules/Contributions";
 //     }
 //   }
 // `;
+const GET_TOTALCONTRIBUTIONS = gql`
+  {
+    viewer {
+      login
+      name
+      followers {
+        totalCount
+      }
+      following {
+        totalCount
+      }
+    }
+    user(login: "shiibawataru") {
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+        }
+      }
+    }
+  }
+`;
 
 const Overview: React.FC = () => {
-  //   const { loading, error, data } = useQuery(GET_SAMPLE);
+  //   const { loading, error, data } = useQuery(GET_TOTALCONTRIBUTIONS);
   //   // クエリ実行中の表示
   //   if (loading) return <p>Loading ...</p>;
   //   // エラー発生時（レスポンスがないとき）の表示
   //   if (error) return <p>ERR!!!{error.message}</p>;
   //   console.log(data);
-  //   const { apples } = data;
   return (
     <>
       <div>Popular repositories</div>

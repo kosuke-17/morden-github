@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
     query: GET_SAMPLE,
   });
   // データ取得確認用console.log
-  console.log(data);
+  // console.log(data);
 
   return {
     props: { data },
