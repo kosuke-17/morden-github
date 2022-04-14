@@ -38,7 +38,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <Layout>
       {isLogin ? (
         <ApolloProvider client={client}>
-          <Header />
+          <Header isLogin={isLogin} setIsLogin={setIsLogin} />
           <UnderLine />
           <Body>
             <BodyLeft>

@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import githubLogo from "../public/github.png";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
+import { LoginType } from "../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
@@ -45,12 +46,10 @@ const PasswordInput = styled.input``;
 const LoginButton = styled.button``;
 // ----------------------------------------------
 
-type Props = {
-  isLogin: boolean;
-  setIsLogin: Dispatch<SetStateAction<boolean>>;
-};
-
-const Login: FC<Props> = ({ isLogin, setIsLogin }) => {
+const Login: FC<LoginType> = ({ isLogin, setIsLogin }) => {
+  const loginClick = () => {
+    setIsLogin(!isLogin);
+  };
   return (
     <LoginLayout>
       <GlassCard>
@@ -72,7 +71,7 @@ const Login: FC<Props> = ({ isLogin, setIsLogin }) => {
               <LockIcon fontSize="large" /> &nbsp;
               <PasswordInput />
             </PasswordBlock>
-            <LoginButton>button</LoginButton>
+            <LoginButton onClick={loginClick}>ログイン</LoginButton>
           </FormContent>
         </CardContent>
       </GlassCard>
