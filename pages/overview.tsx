@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import client from "../apollo-client";
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
 // クエリ文用変数
