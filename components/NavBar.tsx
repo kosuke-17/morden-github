@@ -1,8 +1,8 @@
 import { Tabs, Tab } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import { NabPanel } from "./atoms";
-import Overview from "./Overview";
 
 //  styled-components
 // ----------------------------------------------
@@ -15,6 +15,28 @@ const NavItems = styled.div`
   display: flex;
 `;
 // ----------------------------------------------
+
+// LinkTub引数用の型
+interface LinkTabProps {
+  label?: string;
+  href?: string;
+}
+
+// Tab切り替えでページ切り替え
+const LinkTab = (props: LinkTabProps) => {
+  const router = useRouter();
+
+  return (
+    <Tab
+      component="a"
+      onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        event.preventDefault();
+        router.push(props.href as string);
+      }}
+      {...props}
+    />
+  );
+};
 
 // ナビゲーションするためのコンポーネント
 const NavBar: React.FC = () => {
@@ -29,20 +51,11 @@ const NavBar: React.FC = () => {
     <NavItemsLayout>
       <NavItems>
         <Tabs value={value} onChange={handleChange}>
-          <Tab label="📖Overview" />
-          <Tab label="📚Repositoryies" />
-          <Tab label="🌟Star" />
+          <LinkTab label="📖Overview" href="/overview" />
+          <LinkTab label="📚Repositoryies" href="/repositoryies" />
+          <LinkTab label="🌟Star" href="star" />
         </Tabs>
       </NavItems>
-      <NabPanel value={value} index={0}>
-        <Overview />
-      </NabPanel>
-      <NabPanel value={value} index={1}>
-        Repositoryies
-      </NabPanel>
-      <NabPanel value={value} index={2}>
-        Star
-      </NabPanel>
     </NavItemsLayout>
   );
 };
