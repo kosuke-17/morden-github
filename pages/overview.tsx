@@ -10,65 +10,15 @@ import Contributions from "../components/molecules/Contributions";
 import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { POPULAR_REPOSITORIES_QUERY } from "../common/Query";
+import styled from "styled-components";
 
-// const bull = (
-//   <Box
-//     component="span"
-//     sx={{
-//       boxShadow: 3,
-//       display: "inline-block",
-//       mx: "2px",
-//       transform: "scale(0.8)",
-//     }}
-//   >
-//     •
-//   </Box>
-// );
+//  styled-components
+// ----------------------------------------------
+const WholeStyle = styled.div`
+  margin: 10px 20px 0 0;
+`;
 
-// クエリ文
-// const GET_SAMPLE = gql`
-//   {
-//     viewer {
-//       login
-//     }
-//   }
-// `;
-// const GET_TOTALCONTRIBUTIONS = gql`
-//   {
-//     viewer {
-//       login
-//       name
-//       followers {
-//         totalCount
-//       }
-//       following {
-//         totalCount
-//       }
-//     }
-//     user(login: "shiibawataru") {
-//       contributionsCollection {
-//         contributionCalendar {
-//           totalContributions
-//         }
-//       }
-//     }
-//   }
-// `;
-
-// const GET_REPOSITORYIES = gql`
-//   {
-//     user(login: "shiibawataru") {
-//       repositories(last: 6) {
-//         nodes {
-//           name
-//           url
-//           description
-//         }
-//       }
-//       name
-//     }
-//   }
-// `;
+// ----------------------------------------------
 
 // SSGでのデータ取得方法
 export const getStaticProps: GetStaticProps = async () => {
@@ -89,27 +39,29 @@ const overview: React.FC = ({
   return (
     <>
       <div>Popular repositories</div>
-      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-          <PinnedRepo child={data.user.repositories.nodes[0]} />
+      <WholeStyle>
+        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid item xs={6}>
+            <PinnedRepo child={data.user.repositories.nodes[0]} />
+          </Grid>
+          <Grid item xs={6}>
+            <PinnedRepo child={data.user.repositories.nodes[1]} />
+          </Grid>
+          <Grid item xs={6}>
+            <PinnedRepo child={data.user.repositories.nodes[2]} />
+          </Grid>
+          <Grid item xs={6}>
+            <PinnedRepo child={data.user.repositories.nodes[3]} />
+          </Grid>
+          <Grid item xs={6}>
+            <PinnedRepo child={data.user.repositories.nodes[4]} />
+          </Grid>
+          <Grid item xs={6}>
+            <PinnedRepo child={data.user.repositories.nodes[5]} />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo child={data.user.repositories.nodes[1]} />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo child={data.user.repositories.nodes[2]} />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo child={data.user.repositories.nodes[3]} />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo child={data.user.repositories.nodes[4]} />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo child={data.user.repositories.nodes[5]} />
-        </Grid>
-      </Grid>
-      <Contributions />
+        <Contributions />
+      </WholeStyle>
     </>
   );
 };
