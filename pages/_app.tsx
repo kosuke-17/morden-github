@@ -34,6 +34,13 @@ const UnderLine = styled.div`
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [isLogin, setIsLogin] = useState(false);
+  // pagesに存在しないと500エラー
+  const getAccessToken = async () => {
+    const result = await fetch("/api/githubAuth", {}).catch((err) =>
+      console.log(err)
+    );
+    console.log("result" + JSON.stringify(result));
+  };
   return (
     <Layout>
       {isLogin ? (
@@ -51,7 +58,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           </Body>
         </ApolloProvider>
       ) : (
-        <Login isLogin={isLogin} setIsLogin={setIsLogin} />
+        <Login
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+          getAccessToken={getAccessToken}
+        />
       )}
     </Layout>
   );

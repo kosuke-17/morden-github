@@ -6,4 +6,5 @@ import { Dispatch, SetStateAction } from "react";
 export type LoginType = {
   isLogin: boolean;
   setIsLogin: Dispatch<SetStateAction<boolean>>;
+  getAccessToken?: () => void;
 };

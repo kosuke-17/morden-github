@@ -71,7 +71,7 @@ const ErrCard = styled.div`
 
 // ヘッダーコンポーネント
 const Header: React.FC<LoginType> = ({ isLogin, setIsLogin }) => {
-  // ログアウトのクリック
+  // ログアウトする処理
   const logoutClick = () => {
     setIsLogin(!isLogin);
   };
