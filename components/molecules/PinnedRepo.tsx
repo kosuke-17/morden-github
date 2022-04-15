@@ -32,9 +32,15 @@ const PinnedRepo = (props: any) => {
             <Typography variant="h5" component="div">
               {props.child.name}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {props.child.description} || 空白
-            </Typography>
+            {props.child.description ? (
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                {props.child.description}
+              </Typography>
+            ) : (
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                &nbsp;
+              </Typography>
+            )}
             <Typography variant="body2">●React</Typography>
           </CardContent>
         </Card>
