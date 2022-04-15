@@ -36,29 +36,18 @@ export const getStaticProps: GetStaticProps = async () => {
 const overview: React.FC = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  // 取得したデータを最新順に変更
+  const reversedArr = [...data.user.repositories.nodes].reverse();
   return (
     <>
-      <div>Popular repositories</div>
+      <div>Recently repositories</div>
       <WholeStyle>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={6}>
-            <PinnedRepo child={data.user.repositories.nodes[0]} />
-          </Grid>
-          <Grid item xs={6}>
-            <PinnedRepo child={data.user.repositories.nodes[1]} />
-          </Grid>
-          <Grid item xs={6}>
-            <PinnedRepo child={data.user.repositories.nodes[2]} />
-          </Grid>
-          <Grid item xs={6}>
-            <PinnedRepo child={data.user.repositories.nodes[3]} />
-          </Grid>
-          <Grid item xs={6}>
-            <PinnedRepo child={data.user.repositories.nodes[4]} />
-          </Grid>
-          <Grid item xs={6}>
-            <PinnedRepo child={data.user.repositories.nodes[5]} />
-          </Grid>
+          {reversedArr.map((repo: any) => (
+            <Grid item xs={6} key={repo.id}>
+              <PinnedRepo child={repo} />
+            </Grid>
+          ))}
         </Grid>
         <Contributions />
       </WholeStyle>
