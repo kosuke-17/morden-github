@@ -4,6 +4,8 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import Link from "next/link";
+import CircleIcon from "@mui/icons-material/Circle";
+import { Grid } from "@mui/material";
 
 //  styled-components
 // ----------------------------------------------
@@ -17,7 +19,11 @@ const GlassStyle = styled.div`
 // ----------------------------------------------
 
 const PinnedRepo = (props: any) => {
-  console.log(props.child);
+  // データで取得したカラーを使うため
+  const LanguageStyle = styled.div`
+    color: ${props.child.languages.nodes[0].color};
+  `;
+
   return (
     <GlassStyle>
       <Link href={props.child.url} passHref>
@@ -41,7 +47,16 @@ const PinnedRepo = (props: any) => {
                 &nbsp;
               </Typography>
             )}
-            <Typography variant="body2">●React</Typography>
+            <Typography variant="body2">
+              <Grid container direction="row" alignItems="center">
+                <Grid item>
+                  <LanguageStyle>
+                    <CircleIcon />
+                  </LanguageStyle>
+                </Grid>
+                <Grid item>{props.child.languages.nodes[0].name}</Grid>
+              </Grid>
+            </Typography>
           </CardContent>
         </Card>
       </Link>

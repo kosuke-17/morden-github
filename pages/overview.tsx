@@ -9,6 +9,7 @@ import PinnedRepo from "../components/molecules/PinnedRepo";
 import Contributions from "../components/molecules/Contributions";
 import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { POPULAR_REPOSITORIES_QUERY } from "../common/Query";
 
 // const bull = (
 //   <Box
@@ -32,47 +33,47 @@ import { GetStaticProps, InferGetStaticPropsType } from "next";
 //     }
 //   }
 // `;
-const GET_TOTALCONTRIBUTIONS = gql`
-  {
-    viewer {
-      login
-      name
-      followers {
-        totalCount
-      }
-      following {
-        totalCount
-      }
-    }
-    user(login: "shiibawataru") {
-      contributionsCollection {
-        contributionCalendar {
-          totalContributions
-        }
-      }
-    }
-  }
-`;
+// const GET_TOTALCONTRIBUTIONS = gql`
+//   {
+//     viewer {
+//       login
+//       name
+//       followers {
+//         totalCount
+//       }
+//       following {
+//         totalCount
+//       }
+//     }
+//     user(login: "shiibawataru") {
+//       contributionsCollection {
+//         contributionCalendar {
+//           totalContributions
+//         }
+//       }
+//     }
+//   }
+// `;
 
-const GET_REPOSITORYIES = gql`
-  {
-    user(login: "shiibawataru") {
-      repositories(last: 6) {
-        nodes {
-          name
-          url
-          description
-        }
-      }
-      name
-    }
-  }
-`;
+// const GET_REPOSITORYIES = gql`
+//   {
+//     user(login: "shiibawataru") {
+//       repositories(last: 6) {
+//         nodes {
+//           name
+//           url
+//           description
+//         }
+//       }
+//       name
+//     }
+//   }
+// `;
 
 // SSGでのデータ取得方法
 export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
-    query: GET_REPOSITORYIES,
+    query: POPULAR_REPOSITORIES_QUERY,
   });
   // データ取得確認用console.log
   //   console.log(data);
