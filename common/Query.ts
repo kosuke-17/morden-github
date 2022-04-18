@@ -1,33 +1,6 @@
 import { gql } from "@apollo/client";
 
-// export const PINNED_QUERY = gql`
-//   {
-//     user(login: "shiibawataru") {
-//       pinnedItems(first: 6) {
-//         edges {
-//           node {
-//             ... on Repository {
-//               id
-//               name
-//               url
-//               createdAt
-//               languages(first: 10) {
-//                 edges {
-//                   node {
-//                     id
-//                     name
-//                     color
-//                   }
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-// `;
-
-export const POPULAR_REPOSITORIES_QUERY = gql`
+export const OVERVIEW_QUERY = gql`
   {
     user(login: "shiibawataru") {
       repositories(last: 6) {
@@ -36,28 +9,7 @@ export const POPULAR_REPOSITORIES_QUERY = gql`
           name
           description
           url
-          languages(first: 5, orderBy: { direction: DESC, field: SIZE }) {
-            nodes {
-              color
-              id
-              name
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const All = gql`
-  {
-    user(login: "shiibawataru") {
-      repositories(last: 6) {
-        nodes {
-          id
-          name
-          description
-          url
+          createdAt
           languages(first: 5, orderBy: { direction: DESC, field: SIZE }) {
             edges {
               node {
@@ -65,11 +17,6 @@ export const All = gql`
                 color
                 name
               }
-            }
-            nodes {
-              color
-              id
-              name
             }
           }
         }
@@ -90,9 +37,36 @@ export const All = gql`
             }
             createdAt
             description
+            url
+          }
+        }
+      }
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              color
+              contributionCount
+              contributionLevel
+              date
+              weekday
+            }
           }
         }
       }
     }
   }
 `;
+
+// export const COTRIBUTIONS_QUERY = gql`
+//   {
+//     user(login: "shiibawataru") {
+//       contributionsCollection {
+//         contributionCalendar {
+//           totalContributions
+//         }
+//       }
+//     }
+//   }
+// `;

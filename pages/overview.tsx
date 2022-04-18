@@ -9,24 +9,30 @@ import PinnedRepo from "../components/molecules/PinnedRepo";
 import Contributions from "../components/molecules/Contributions";
 import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { POPULAR_REPOSITORIES_QUERY, All } from "../common/Query";
+import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
 
 //  styled-components
 // ----------------------------------------------
 const WholeStyle = styled.div`
-  margin: 10px 20px 0 0;
+  margin: 10px 50px 0 0;
 `;
 
 // ----------------------------------------------
 
 // SSGでのデータ取得方法
 export const getStaticProps: GetStaticProps = async () => {
+  // Pinedリポジトリーと最新のリポジトリーの取得
   const { data } = await client.query({
-    query: All,
+    query: OVERVIEW_QUERY,
   });
   // データ取得確認用console.log
-  //   console.log(data);
+  console.log(data);
+
+  //
+  //   const { data2 } = await client.query({
+  //     query: COTRIBUTIONS_QUERY,
+  //   });
 
   return {
     props: { data },
@@ -39,6 +45,8 @@ const overview: React.FC = ({
   // 取得したデータをひっくり返して最新順に変更
   const reversedArr = [...data.user.repositories.nodes].reverse();
   const pinnedRipo = [...data.user.pinnedItems.nodes];
+  // Contributions
+  const contributions = data.user.contributionsCollection.contributionCalendar;
   return (
     <>
       {pinnedRipo.length === 0 ? (
@@ -76,7 +84,9 @@ const overview: React.FC = ({
           </WholeStyle>
         </>
       )}
-      <Contributions />
+      <WholeStyle>
+        <Contributions child={contributions} />
+      </WholeStyle>
     </>
   );
 };
