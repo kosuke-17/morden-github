@@ -1,11 +1,3 @@
-// import React from "react";
-
-// const overview = () => {
-//   return <div>overview</div>;
-// };
-
-// export default overview;
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -15,81 +7,75 @@ import Grid from "@mui/material/Grid";
 import { gql, useQuery } from "@apollo/client";
 import PinnedRepo from "../components/molecules/PinnedRepo";
 import Contributions from "../components/molecules/Contributions";
+import client from "../apollo-client";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { POPULAR_REPOSITORIES_QUERY, All } from "../common/Query";
+import styled from "styled-components";
 
-// const bull = (
-//   <Box
-//     component="span"
-//     sx={{
-//       boxShadow: 3,
-//       display: "inline-block",
-//       mx: "2px",
-//       transform: "scale(0.8)",
-//     }}
-//   >
-//     •
-//   </Box>
-// );
-
-// クエリ文
-// const GET_SAMPLE = gql`
-//   {
-//     viewer {
-//       login
-//     }
-//   }
-// `;
-const GET_TOTALCONTRIBUTIONS = gql`
-  {
-    viewer {
-      login
-      name
-      followers {
-        totalCount
-      }
-      following {
-        totalCount
-      }
-    }
-    user(login: "shiibawataru") {
-      contributionsCollection {
-        contributionCalendar {
-          totalContributions
-        }
-      }
-    }
-  }
+//  styled-components
+// ----------------------------------------------
+const WholeStyle = styled.div`
+  margin: 10px 20px 0 0;
 `;
 
-const overview: React.FC = () => {
-  //   const { loading, error, data } = useQuery(GET_TOTALCONTRIBUTIONS);
-  //   // クエリ実行中の表示
-  //   if (loading) return <p>Loading ...</p>;
-  //   // エラー発生時（レスポンスがないとき）の表示
-  //   if (error) return <p>ERR!!!{error.message}</p>;
+// ----------------------------------------------
+
+// SSGでのデータ取得方法
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query({
+    query: All,
+  });
+  // データ取得確認用console.log
   //   console.log(data);
+
+  return {
+    props: { data },
+  };
+};
+
+const overview: React.FC = ({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  // 取得したデータをひっくり返して最新順に変更
+  const reversedArr = [...data.user.repositories.nodes].reverse();
+  const pinnedRipo = [...data.user.pinnedItems.nodes];
   return (
     <>
-      <div>Popular repositories</div>
-      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-          <PinnedRepo />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo />
-        </Grid>
-        <Grid item xs={6}>
-          <PinnedRepo />
-        </Grid>
-      </Grid>
+      {pinnedRipo.length === 0 ? (
+        <>
+          <div>Recently repositories </div>
+          <WholeStyle>
+            <Grid
+              container
+              rowSpacing={2}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              {reversedArr.map((repo: any) => (
+                <Grid item xs={6} key={repo.id}>
+                  <PinnedRepo child={repo} />
+                </Grid>
+              ))}
+            </Grid>
+          </WholeStyle>
+        </>
+      ) : (
+        <>
+          <div>Pinned</div>
+          <WholeStyle>
+            <Grid
+              container
+              rowSpacing={2}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              {pinnedRipo.map((repo: any) => (
+                <Grid item xs={6} key={repo.id}>
+                  <PinnedRepo child={repo} />
+                </Grid>
+              ))}
+            </Grid>
+          </WholeStyle>
+        </>
+      )}
       <Contributions />
     </>
   );
