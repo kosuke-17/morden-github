@@ -22,11 +22,17 @@ const WholeStyle = styled.div`
 
 // SSGでのデータ取得方法
 export const getStaticProps: GetStaticProps = async () => {
+  // Pinedリポジトリーと最新のリポジトリーの取得
   const { data } = await client.query({
     query: OVERVIEW_QUERY,
   });
   // データ取得確認用console.log
-  //   console.log(data);
+  console.log(data);
+
+  //
+  //   const { data2 } = await client.query({
+  //     query: COTRIBUTIONS_QUERY,
+  //   });
 
   return {
     props: { data },
@@ -39,6 +45,8 @@ const overview: React.FC = ({
   // 取得したデータをひっくり返して最新順に変更
   const reversedArr = [...data.user.repositories.nodes].reverse();
   const pinnedRipo = [...data.user.pinnedItems.nodes];
+  // Contributions
+  const contributions = data.user.contributionsCollection.contributionCalendar;
   return (
     <>
       {pinnedRipo.length === 0 ? (
@@ -76,7 +84,7 @@ const overview: React.FC = ({
           </WholeStyle>
         </>
       )}
-      <Contributions />
+      <Contributions child={contributions} />
     </>
   );
 };

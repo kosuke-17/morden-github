@@ -9,6 +9,7 @@ export const OVERVIEW_QUERY = gql`
           name
           description
           url
+          createdAt
           languages(first: 5, orderBy: { direction: DESC, field: SIZE }) {
             edges {
               node {
@@ -16,11 +17,6 @@ export const OVERVIEW_QUERY = gql`
                 color
                 name
               }
-            }
-            nodes {
-              color
-              id
-              name
             }
           }
         }
@@ -45,6 +41,32 @@ export const OVERVIEW_QUERY = gql`
           }
         }
       }
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              color
+              contributionCount
+              contributionLevel
+              date
+              weekday
+            }
+          }
+        }
+      }
     }
   }
 `;
+
+// export const COTRIBUTIONS_QUERY = gql`
+//   {
+//     user(login: "shiibawataru") {
+//       contributionsCollection {
+//         contributionCalendar {
+//           totalContributions
+//         }
+//       }
+//     }
+//   }
+// `;
