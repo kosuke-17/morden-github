@@ -15,7 +15,7 @@ import styled from "styled-components";
 //  styled-components
 // ----------------------------------------------
 const WholeStyle = styled.div`
-  margin: 10px 20px 0 0;
+  margin: 10px 50px 0 0;
 `;
 
 // ----------------------------------------------
@@ -84,7 +84,9 @@ const overview: React.FC = ({
           </WholeStyle>
         </>
       )}
-      <Contributions child={contributions} />
+      <WholeStyle>
+        <Contributions child={contributions} />
+      </WholeStyle>
     </>
   );
 };
