@@ -5,35 +5,13 @@ import Card from "@mui/material/Card";
 
 //  styled-components
 // ----------------------------------------------
-const List = styled.li`
-  list-style: none;
-`;
-// const Svg = styled.svg`
-//   width: 15;
-//   height: 15;
-//   display: flex;
-//   align-items: "center";
-// `;
 
 // ----------------------------------------------
 
 const Contributions = (props: any) => {
-  // const Lect = styled.div`
-  //   // color: ${props.child.contributionDays[0].color};
-  //   fill: blue;
-  // `;
-  const OutLine = styled.div`
-    outline: solid;
-    border-radius: 5px;
-    color: blue;
-    padding: 15px;
-    margin: 5px 20px 0px 0px;
-  `;
-  console.log(props);
   return (
     <>
       <div>{props.child.totalContributions} contributions in the last year</div>
-      {/* <OutLine> */}
       <Card
         sx={{
           minWidth: 275,
@@ -55,7 +33,6 @@ const Contributions = (props: any) => {
                   {week.contributionDays.map(
                     (contribution: any, index: number) => (
                       <>
-                        {/* <p key="index">{contribution.date}</p> */}
                         <div>
                           <svg width="15" height="15">
                             <rect
@@ -71,7 +48,6 @@ const Contributions = (props: any) => {
                     )
                   )}
                 </div>
-                {/* ここで横並び */}
               </>
             ))}
           </Box>
@@ -104,7 +80,6 @@ const Contributions = (props: any) => {
           </Box>
         </CardContent>
       </Card>
-      {/* </OutLine> */}
     </>
   );
 };
