@@ -9,7 +9,7 @@ import PinnedRepo from "../components/molecules/PinnedRepo";
 import Contributions from "../components/molecules/Contributions";
 import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { POPULAR_REPOSITORIES_QUERY, All } from "../common/Query";
+import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
 
 //  styled-components
@@ -23,7 +23,7 @@ const WholeStyle = styled.div`
 // SSGでのデータ取得方法
 export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query({
-    query: All,
+    query: OVERVIEW_QUERY,
   });
   // データ取得確認用console.log
   //   console.log(data);

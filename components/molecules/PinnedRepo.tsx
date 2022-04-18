@@ -26,40 +26,40 @@ const PinnedRepo = (props: any) => {
 
   return (
     <GlassStyle>
-      {/* <Link href={props.child.url} passHref> */}
-      <Card
-        sx={{
-          minWidth: 275,
-          boxShadow: 10,
-          backgroundColor: "rgba(255, 255, 255, 0.5)",
-        }}
-      >
-        <CardContent>
-          <Typography variant="h5" component="div">
-            {props.child.name}
-          </Typography>
-          {props.child.description ? (
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {props.child.description}
+      <Link href={props.child.url} passHref>
+        <Card
+          sx={{
+            minWidth: 275,
+            boxShadow: 10,
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+          }}
+        >
+          <CardContent>
+            <Typography variant="h5" component="div">
+              {props.child.name}
             </Typography>
-          ) : (
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              &nbsp;
-            </Typography>
-          )}
-          <Typography variant="body2">
-            <Grid container direction="row" alignItems="center">
-              <Grid item>
-                <LanguageStyle>
-                  <CircleIcon />
-                </LanguageStyle>
+            {props.child.description ? (
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                {props.child.description}
+              </Typography>
+            ) : (
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                &nbsp;
+              </Typography>
+            )}
+            <Typography variant="body2">
+              <Grid container direction="row" alignItems="center">
+                <Grid item>
+                  <LanguageStyle>
+                    <CircleIcon />
+                  </LanguageStyle>
+                </Grid>
+                <Grid item>{props.child.languages.edges[0].node.name}</Grid>
               </Grid>
-              <Grid item>{props.child.languages.edges[0].node.name}</Grid>
-            </Grid>
-          </Typography>
-        </CardContent>
-      </Card>
-      {/* </Link> */}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Link>
     </GlassStyle>
   );
 };
