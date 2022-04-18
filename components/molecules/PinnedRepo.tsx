@@ -21,45 +21,45 @@ const GlassStyle = styled.div`
 const PinnedRepo = (props: any) => {
   // データで取得したカラーを使うため
   const LanguageStyle = styled.div`
-    color: ${props.child.languages.nodes[0].color};
+    color: ${props.child.languages.edges[0].node.color};
   `;
 
   return (
     <GlassStyle>
-      <Link href={props.child.url} passHref>
-        <Card
-          sx={{
-            minWidth: 275,
-            boxShadow: 10,
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-          }}
-        >
-          <CardContent>
-            <Typography variant="h5" component="div">
-              {props.child.name}
+      {/* <Link href={props.child.url} passHref> */}
+      <Card
+        sx={{
+          minWidth: 275,
+          boxShadow: 10,
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+        }}
+      >
+        <CardContent>
+          <Typography variant="h5" component="div">
+            {props.child.name}
+          </Typography>
+          {props.child.description ? (
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {props.child.description}
             </Typography>
-            {props.child.description ? (
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                {props.child.description}
-              </Typography>
-            ) : (
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                &nbsp;
-              </Typography>
-            )}
-            <Typography variant="body2">
-              <Grid container direction="row" alignItems="center">
-                <Grid item>
-                  <LanguageStyle>
-                    <CircleIcon />
-                  </LanguageStyle>
-                </Grid>
-                <Grid item>{props.child.languages.nodes[0].name}</Grid>
+          ) : (
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              &nbsp;
+            </Typography>
+          )}
+          <Typography variant="body2">
+            <Grid container direction="row" alignItems="center">
+              <Grid item>
+                <LanguageStyle>
+                  <CircleIcon />
+                </LanguageStyle>
               </Grid>
-            </Typography>
-          </CardContent>
-        </Card>
-      </Link>
+              <Grid item>{props.child.languages.edges[0].node.name}</Grid>
+            </Grid>
+          </Typography>
+        </CardContent>
+      </Card>
+      {/* </Link> */}
     </GlassStyle>
   );
 };
