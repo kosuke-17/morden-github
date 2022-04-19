@@ -10,6 +10,28 @@ export type LoginType = {
 };
 
 /**
+ * リポジトリデータ用の型
+ */
+export type Repository = {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  createdAt: string;
+  languages: {
+    edges: [
+      {
+        node: {
+          id: string;
+          color: string;
+          name: string;
+        };
+      }
+    ];
+  };
+};
+
+/**
  * 草用の型
  */
 export type ContributionType = {

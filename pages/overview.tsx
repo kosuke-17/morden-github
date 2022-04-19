@@ -6,7 +6,11 @@ import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
-import type { ContributionType, OverviewType } from "../utils/Types";
+import type {
+  ContributionType,
+  OverviewType,
+  Repository,
+} from "../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
@@ -32,26 +36,29 @@ export const getStaticProps: GetStaticProps = async () => {
 const overview: React.FC = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // 取得したデータをひっくり返して最新順に変更
-  const reversedArr = [...data.user.repositories.nodes].reverse();
-  const pinnedRipo = [...data.user.pinnedItems.nodes];
-  // Contributions
+  // ピン留めリポジトリーデータ
+  const pinnedRipo: Repository[] = [...data.user.pinnedItems.nodes];
+  // 最近のリポジトリーデータをひっくり返して最新順に変更
+  const recentlyRipo: Repository[] = [
+    ...data.user.repositories.nodes,
+  ].reverse();
+  // 草用データ
   const contributions: ContributionType =
     data.user.contributionsCollection.contributionCalendar;
   return (
     <>
       {pinnedRipo.length === 0 ? (
         <>
-          <div>Recently repositories </div>
+          <div>Recently repositories</div>
           <WholeStyle>
             <Grid
               container
               rowSpacing={2}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              {reversedArr.map((repo: any) => (
+              {recentlyRipo.map((repo: Repository) => (
                 <Grid item xs={6} key={repo.id}>
-                  <PinnedRepo child={repo} />
+                  <PinnedRepo repo={repo} />
                 </Grid>
               ))}
             </Grid>
@@ -66,9 +73,9 @@ const overview: React.FC = ({
               rowSpacing={2}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              {pinnedRipo.map((repo: any) => (
+              {pinnedRipo.map((repo: Repository) => (
                 <Grid item xs={6} key={repo.id}>
-                  <PinnedRepo child={repo} />
+                  <PinnedRepo repo={repo} />
                 </Grid>
               ))}
             </Grid>
