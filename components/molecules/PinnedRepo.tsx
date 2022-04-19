@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import CircleIcon from "@mui/icons-material/Circle";
 import { Grid } from "@mui/material";
+import type { RepositoryType } from "../../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
@@ -15,18 +16,21 @@ const GlassStyle = styled.div`
     opacity: 0.5;
   }
 `;
-
 // ----------------------------------------------
 
-const PinnedRepo = (props: any) => {
+type Props = {
+  repo: RepositoryType;
+};
+
+const PinnedRepo: React.FC<Props> = (props) => {
   // データで取得したカラーを使うため
   const LanguageStyle = styled.div`
-    color: ${props.child.languages.edges[0].node.color};
+    color: ${props.repo.languages.edges[0].node.color};
   `;
 
   return (
     <GlassStyle>
-      <Link href={props.child.url} passHref>
+      <Link href={props.repo.url} passHref>
         <Card
           sx={{
             minWidth: 275,
@@ -36,14 +40,14 @@ const PinnedRepo = (props: any) => {
         >
           <CardContent>
             <Typography variant="h5" component="div">
-              {props.child.name}
+              {props.repo.name}
             </Typography>
-            {props.child.description ? (
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                {props.child.description}
+            {props.repo.description ? (
+              <Typography sx={{ mb: 1 }} color="text.secondary">
+                {props.repo.description}
               </Typography>
             ) : (
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1 }} color="text.secondary">
                 &nbsp;
               </Typography>
             )}
@@ -54,7 +58,7 @@ const PinnedRepo = (props: any) => {
                     <CircleIcon />
                   </LanguageStyle>
                 </Grid>
-                <Grid item>{props.child.languages.edges[0].node.name}</Grid>
+                <Grid item>{props.repo.languages.edges[0].node.name}</Grid>
               </Grid>
             </Typography>
           </CardContent>
