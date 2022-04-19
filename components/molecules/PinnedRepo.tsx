@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import CircleIcon from "@mui/icons-material/Circle";
 import { Grid } from "@mui/material";
-import type { Repository } from "../../utils/Types";
+import type { RepositoryType } from "../../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
@@ -19,7 +19,7 @@ const GlassStyle = styled.div`
 // ----------------------------------------------
 
 type Props = {
-  repo: Repository;
+  repo: RepositoryType;
 };
 
 const PinnedRepo: React.FC<Props> = (props) => {

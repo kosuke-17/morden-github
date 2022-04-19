@@ -9,7 +9,7 @@ import styled from "styled-components";
 import type {
   ContributionType,
   OverviewType,
-  Repository,
+  RepositoryType,
 } from "../utils/Types";
 
 //  styled-components
@@ -37,9 +37,9 @@ const overview: React.FC = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   // ピン留めリポジトリーデータ
-  const pinnedRipo: Repository[] = [...data.user.pinnedItems.nodes];
+  const pinnedRipo: RepositoryType[] = [...data.user.pinnedItems.nodes];
   // 最近のリポジトリーデータをひっくり返して最新順に変更
-  const recentlyRipo: Repository[] = [
+  const recentlyRipo: RepositoryType[] = [
     ...data.user.repositories.nodes,
   ].reverse();
   // 草用データ
@@ -56,7 +56,7 @@ const overview: React.FC = ({
               rowSpacing={2}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              {recentlyRipo.map((repo: Repository) => (
+              {recentlyRipo.map((repo: RepositoryType) => (
                 <Grid item xs={6} key={repo.id}>
                   <PinnedRepo repo={repo} />
                 </Grid>
@@ -73,7 +73,7 @@ const overview: React.FC = ({
               rowSpacing={2}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              {pinnedRipo.map((repo: Repository) => (
+              {pinnedRipo.map((repo: RepositoryType) => (
                 <Grid item xs={6} key={repo.id}>
                   <PinnedRepo repo={repo} />
                 </Grid>

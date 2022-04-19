@@ -2,7 +2,11 @@ import { Box, CardContent } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import Card from "@mui/material/Card";
-import type { ContributionType } from "../../utils/Types";
+import type {
+  ContributionType,
+  ContributionWeeksType,
+  ContributionDaysType,
+} from "../../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
@@ -36,22 +40,24 @@ const Contributions: React.FC<Props> = (props) => {
           >
             {props.contributions.weeks.map((week: any, index: number) => (
               <>
-                <div>
-                  {week.contributionDays.map((day: any, index: number) => (
-                    <>
-                      <div>
-                        <svg width="15" height="15">
-                          <rect
-                            width="11"
-                            height="11"
-                            x="0"
-                            y="0"
-                            fill={`${day.color}`}
-                          ></rect>
-                        </svg>
-                      </div>
-                    </>
-                  ))}
+                <div key={index}>
+                  {week.contributionDays.map(
+                    (day: ContributionDaysType, index: number) => (
+                      <>
+                        <div key={index}>
+                          <svg width="15" height="15">
+                            <rect
+                              width="11"
+                              height="11"
+                              x="0"
+                              y="0"
+                              fill={`${day.color}`}
+                            ></rect>
+                          </svg>
+                        </div>
+                      </>
+                    )
+                  )}
                 </div>
               </>
             ))}

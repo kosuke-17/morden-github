@@ -12,7 +12,7 @@ export type LoginType = {
 /**
  * リポジトリデータ用の型
  */
-export type Repository = {
+export type RepositoryType = {
   id: string;
   name: string;
   description: string;
@@ -32,7 +32,7 @@ export type Repository = {
 };
 
 /**
- * 草用の型
+ * 草用データの型
  */
 export type ContributionType = {
   totalContributions: number;
@@ -54,6 +54,37 @@ export type ContributionType = {
       ];
     }
   ];
+};
+
+/**
+ * 草用週ごとデータの型
+ */
+export type ContributionWeeksType = {
+  contributionDays: [
+    {
+      color: string;
+      contributionDays: [
+        {
+          color: string;
+          contributionDays: number;
+          contributionLevel: number;
+          date: string;
+          weekday: number;
+        }
+      ];
+    }
+  ];
+};
+
+/**
+ * 草用日毎データの型
+ */
+export type ContributionDaysType = {
+  color: string;
+  contributionDays: number;
+  contributionLevel: number;
+  date: string;
+  weekday: number;
 };
 
 // Overviewデータ用の型
