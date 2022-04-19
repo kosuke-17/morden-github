@@ -19,7 +19,6 @@ type Props = {
 };
 
 const Contributions: React.FC<Props> = (props) => {
-  console.log(props);
   return (
     <>
       <div>
