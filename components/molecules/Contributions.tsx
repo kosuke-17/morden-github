@@ -41,6 +41,17 @@ const Contributions: React.FC<Props> = (props) => {
                 justifyContent: "center",
               }}
             >
+              <svg width="40" height="133">
+                <text x="0" y="30" fontSize="15">
+                  Mon
+                </text>
+                <text x="0" y="68" fontSize="15">
+                  Wed
+                </text>
+                <text x="0" y="106" fontSize="15">
+                  Fri
+                </text>
+              </svg>
               {props.contributions.weeks.map((week: any, index: number) => (
                 <>
                   <div key={index}>
