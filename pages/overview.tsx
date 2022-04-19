@@ -1,16 +1,12 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { gql, useQuery } from "@apollo/client";
 import PinnedRepo from "../components/molecules/PinnedRepo";
 import Contributions from "../components/molecules/Contributions";
 import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
+import type { ContributionType, OverviewType } from "../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
@@ -22,17 +18,11 @@ const WholeStyle = styled.div`
 
 // SSGでのデータ取得方法
 export const getStaticProps: GetStaticProps = async () => {
-  // Pinedリポジトリーと最新のリポジトリーの取得
-  const { data } = await client.query({
+  const { data }: { data: OverviewType } = await client.query({
     query: OVERVIEW_QUERY,
   });
   // データ取得確認用console.log
-  console.log(data);
-
-  //
-  //   const { data2 } = await client.query({
-  //     query: COTRIBUTIONS_QUERY,
-  //   });
+  //   console.log(data);
 
   return {
     props: { data },
@@ -46,7 +36,8 @@ const overview: React.FC = ({
   const reversedArr = [...data.user.repositories.nodes].reverse();
   const pinnedRipo = [...data.user.pinnedItems.nodes];
   // Contributions
-  const contributions = data.user.contributionsCollection.contributionCalendar;
+  const contributions: ContributionType =
+    data.user.contributionsCollection.contributionCalendar;
   return (
     <>
       {pinnedRipo.length === 0 ? (
@@ -85,7 +76,7 @@ const overview: React.FC = ({
         </>
       )}
       <WholeStyle>
-        <Contributions child={contributions} />
+        <Contributions contributions={contributions} />
       </WholeStyle>
     </>
   );

@@ -39,11 +39,11 @@ const PinnedRepo = (props: any) => {
               {props.child.name}
             </Typography>
             {props.child.description ? (
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1 }} color="text.secondary">
                 {props.child.description}
               </Typography>
             ) : (
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography sx={{ mb: 1 }} color="text.secondary">
                 &nbsp;
               </Typography>
             )}

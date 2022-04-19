@@ -2,16 +2,23 @@ import { Box, CardContent } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import Card from "@mui/material/Card";
+import type { ContributionType } from "../../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
 
 // ----------------------------------------------
+type Props = {
+  contributions: ContributionType;
+};
 
-const Contributions = (props: any) => {
+const Contributions: React.FC<Props> = (props) => {
+  console.log(props);
   return (
     <>
-      <div>{props.child.totalContributions} contributions in the last year</div>
+      <div>
+        {props.contributions.totalContributions} contributions in the last year
+      </div>
       <Card
         sx={{
           minWidth: 275,
@@ -27,26 +34,24 @@ const Contributions = (props: any) => {
               justifyContent: "center",
             }}
           >
-            {props.child.weeks.map((week: any, index: number) => (
+            {props.contributions.weeks.map((week: any, index: number) => (
               <>
                 <div>
-                  {week.contributionDays.map(
-                    (contribution: any, index: number) => (
-                      <>
-                        <div>
-                          <svg width="15" height="15">
-                            <rect
-                              width="11"
-                              height="11"
-                              x="0"
-                              y="0"
-                              fill={`${contribution.color}`}
-                            ></rect>
-                          </svg>
-                        </div>
-                      </>
-                    )
-                  )}
+                  {week.contributionDays.map((day: any, index: number) => (
+                    <>
+                      <div>
+                        <svg width="15" height="15">
+                          <rect
+                            width="11"
+                            height="11"
+                            x="0"
+                            y="0"
+                            fill={`${day.color}`}
+                          ></rect>
+                        </svg>
+                      </div>
+                    </>
+                  ))}
                 </div>
               </>
             ))}
@@ -62,19 +67,19 @@ const Contributions = (props: any) => {
             <div>Less</div>
             &nbsp;
             <svg width="15" height="15">
-              <rect width="10" height="10" x="0" y="0" fill={`#ebedf0`}></rect>
+              <rect width="10" height="10" x="0" y="2" fill={`#ebedf0`}></rect>
             </svg>
             <svg width="15" height="15">
-              <rect width="10" height="10" x="0" y="0" fill={`#9be9a8`}></rect>
+              <rect width="10" height="10" x="0" y="2" fill={`#9be9a8`}></rect>
             </svg>
             <svg width="15" height="15">
-              <rect width="10" height="10" x="0" y="0" fill={`#40c463`}></rect>
+              <rect width="10" height="10" x="0" y="2" fill={`#40c463`}></rect>
             </svg>
             <svg width="15" height="15">
-              <rect width="10" height="10" x="0" y="0" fill={`#40c463`}></rect>
+              <rect width="10" height="10" x="0" y="2" fill={`#40c463`}></rect>
             </svg>
             <svg width="15" height="15">
-              <rect width="10" height="10" x="0" y="0" fill={`#216e39`}></rect>
+              <rect width="10" height="10" x="0" y="2" fill={`#216e39`}></rect>
             </svg>
             <div>More</div>
           </Box>
