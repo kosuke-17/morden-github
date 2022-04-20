@@ -6,7 +6,6 @@ import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
-import styles from "../styles/Overview.module.css";
 
 import type {
   ContributionType,
