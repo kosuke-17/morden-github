@@ -39,7 +39,7 @@ const Contributions: React.FC<Props> = (props) => {
               display: "inline-block",
             }}
           >
-            <svg width="100%" height="15">
+            {/* <svg width="100%" height="15">
               <text x="40" y="12" fontSize="15">
                 Apr
               </text>
@@ -49,7 +49,7 @@ const Contributions: React.FC<Props> = (props) => {
               <text x="145" y="12" fontSize="15">
                 Jun
               </text>
-            </svg>
+            </svg> */}
             <Box
               sx={{
                 display: "flex",
