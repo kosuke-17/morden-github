@@ -8,6 +8,7 @@ import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
 import { useState } from "react";
 import { parseCookies } from "nookies";
+import { Grid } from "@mui/material";
 
 const Layout = styled.div`
   height: 100vh;
@@ -20,13 +21,21 @@ const Layout = styled.div`
 `;
 const Body = styled.div`
   display: flex;
+  justify-content: center;
 `;
-const BodyLeft = styled.div`
-  width: 30%;
-`;
-const BodyRight = styled.div`
-  width: 70%;
-`;
+
+// const BackgroundImage = styled.div`
+//   background-image: url("/github.png");
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// `;
+// const BodyLeft = styled.div`
+//   width: 30%;
+// `;
+// const BodyRight = styled.div`
+//   width: 70%;
+// `;
+
 const UnderLine = styled.div`
   position: relative;
   top: 3rem;
@@ -57,13 +66,20 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <Header isLogin={isLogin} setIsLogin={setIsLogin} />
           <UnderLine />
           <Body>
-            <BodyLeft>
-              <ProfileS />
-            </BodyLeft>
-            <BodyRight>
-              <NavBar />
-              <Component {...pageProps} />
-            </BodyRight>
+            <Grid container>
+              <Grid item xs={12} sm={3.5}>
+                {/* <BodyLeft> */}
+                <ProfileS />
+                {/* </BodyLeft> */}
+              </Grid>
+
+              <Grid item xs={12} sm={8.5}>
+                {/* <BodyRight> */}
+                <NavBar />
+                <Component {...pageProps} />
+                {/* </BodyRight> */}
+              </Grid>
+            </Grid>
           </Body>
         </ApolloProvider>
       ) : (

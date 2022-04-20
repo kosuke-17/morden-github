@@ -1,29 +1,33 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { gql, useQuery } from "@apollo/client";
 import PinnedRepo from "../components/molecules/PinnedRepo";
 import Contributions from "../components/molecules/Contributions";
 import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { POPULAR_REPOSITORIES_QUERY, All } from "../common/Query";
+import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
+
+import type {
+  ContributionType,
+  OverviewType,
+  RepositoryType,
+} from "../utils/Types";
 
 //  styled-components
 // ----------------------------------------------
 const WholeStyle = styled.div`
-  margin: 10px 20px 0 0;
+  margin: 20px;
+`;
+const SubTitle = styled.div`
+  margin-left: 20px;
 `;
 
 // ----------------------------------------------
 
 // SSGでのデータ取得方法
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await client.query({
-    query: All,
+  const { data }: { data: OverviewType } = await client.query({
+    query: OVERVIEW_QUERY,
   });
   // データ取得確認用console.log
   //   console.log(data);
@@ -36,23 +40,29 @@ export const getStaticProps: GetStaticProps = async () => {
 const overview: React.FC = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // 取得したデータをひっくり返して最新順に変更
-  const reversedArr = [...data.user.repositories.nodes].reverse();
-  const pinnedRipo = [...data.user.pinnedItems.nodes];
+  // ピン留めリポジトリーデータ
+  const pinnedRipo: RepositoryType[] = [...data.user.pinnedItems.nodes];
+  // 最近のリポジトリーデータをひっくり返して最新順に変更
+  const recentlyRipo: RepositoryType[] = [
+    ...data.user.repositories.nodes,
+  ].reverse();
+  // 草用データ
+  const contributions: ContributionType =
+    data.user.contributionsCollection.contributionCalendar;
   return (
-    <>
+    <div>
       {pinnedRipo.length === 0 ? (
         <>
-          <div>Recently repositories </div>
+          <SubTitle>Recently repositories</SubTitle>
           <WholeStyle>
             <Grid
               container
               rowSpacing={2}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              {reversedArr.map((repo: any) => (
-                <Grid item xs={6} key={repo.id}>
-                  <PinnedRepo child={repo} />
+              {recentlyRipo.map((repo: RepositoryType) => (
+                <Grid item xs={12} md={6} key={repo.id}>
+                  <PinnedRepo repo={repo} />
                 </Grid>
               ))}
             </Grid>
@@ -67,17 +77,22 @@ const overview: React.FC = ({
               rowSpacing={2}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
-              {pinnedRipo.map((repo: any) => (
+              {pinnedRipo.map((repo: RepositoryType) => (
                 <Grid item xs={6} key={repo.id}>
-                  <PinnedRepo child={repo} />
+                  <PinnedRepo repo={repo} />
                 </Grid>
               ))}
             </Grid>
           </WholeStyle>
         </>
       )}
-      <Contributions />
-    </>
+      <SubTitle>
+        {contributions.totalContributions} contributions in the last year
+      </SubTitle>
+      <WholeStyle>
+        <Contributions contributions={contributions} />
+      </WholeStyle>
+    </div>
   );
 };
 
