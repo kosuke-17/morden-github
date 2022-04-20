@@ -12,7 +12,6 @@ import type {
   OverviewType,
   RepositoryType,
 } from "../utils/Types";
-import { CircularProgress } from "@mui/material";
 
 //  styled-components
 // ----------------------------------------------

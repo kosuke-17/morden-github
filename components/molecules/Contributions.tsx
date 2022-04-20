@@ -39,6 +39,17 @@ const Contributions: React.FC<Props> = (props) => {
               display: "inline-block",
             }}
           >
+            <svg width="100%" height="15">
+              <text x="40" y="12" fontSize="15">
+                Apr
+              </text>
+              <text x="70" y="12" fontSize="15">
+                May
+              </text>
+              <text x="145" y="12" fontSize="15">
+                Jun
+              </text>
+            </svg>
             <Box
               sx={{
                 display: "flex",
@@ -71,6 +82,7 @@ const Contributions: React.FC<Props> = (props) => {
                                 x="0"
                                 y="0"
                                 fill={`${day.color}`}
+                                data-date={`${day.date}`}
                               ></rect>
                             </svg>
                           </div>
