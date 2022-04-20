@@ -13,8 +13,6 @@ import type {
 // ----------------------------------------------
 const ScrollStyle = styled.div`
   overflow: scroll;
-  width: 100%;
-  min-width: 0;
 `;
 // ----------------------------------------------
 type Props = {
@@ -31,7 +29,11 @@ const Contributions: React.FC<Props> = (props) => {
           backgroundColor: "rgba(255, 255, 255, 0.7)",
         }}
       >
-        <ScrollStyle>
+        <ScrollStyle
+          style={{
+            scrollbarColor: "red yellow",
+          }}
+        >
           <CardContent
             style={{
               display: "inline-block",
