@@ -2,6 +2,7 @@ import { Box, CardContent } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import Card from "@mui/material/Card";
+
 import type {
   ContributionType,
   ContributionWeeksType,
@@ -12,6 +13,8 @@ import type {
 // ----------------------------------------------
 const ScrollStyle = styled.div`
   overflow: scroll;
+  width: 100%;
+  min-width: 0;
 `;
 // ----------------------------------------------
 type Props = {
@@ -29,7 +32,11 @@ const Contributions: React.FC<Props> = (props) => {
         }}
       >
         <ScrollStyle>
-          <CardContent>
+          <CardContent
+            style={{
+              display: "inline-block",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -72,12 +79,12 @@ const Contributions: React.FC<Props> = (props) => {
                 </>
               ))}
             </Box>
-            <br />
             <Box
               sx={{
+                marginTop: "10px",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-start",
+                justifyContent: "flex-end",
               }}
             >
               <div>Less</div>
