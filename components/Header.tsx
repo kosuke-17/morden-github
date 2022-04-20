@@ -7,6 +7,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { LoginType } from "../utils/Types";
+import { destroyCookie } from "nookies";
 
 //  styled-components
 // ----------------------------------------------
@@ -74,6 +75,7 @@ const Header: React.FC<LoginType> = ({ isLogin, setIsLogin }) => {
   // ログアウトする処理
   const logoutClick = () => {
     setIsLogin(!isLogin);
+    destroyCookie(null, "accessToken");
   };
   // 入力フォームをformikのhooksで実装
   // 10文字制限と空白のバリデーション

@@ -7,6 +7,7 @@ import { NavBar } from "../components";
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
 import { useState } from "react";
+import { parseCookies } from "nookies";
 
 const Layout = styled.div`
   height: 100vh;
@@ -33,6 +34,13 @@ const UnderLine = styled.div`
 `;
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const cookies = parseCookies();
+  let existToken = "";
+  if (cookies.accessToken) {
+    existToken = cookies.accessToken;
+  } else {
+    existToken = "";
+  }
   const [isLogin, setIsLogin] = useState(false);
   // pagesに存在しないと500エラー
   const getAccessToken = async () => {
@@ -43,6 +51,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   };
   return (
     <Layout>
+      {existToken && existToken}
       {isLogin ? (
         <ApolloProvider client={client}>
           <Header isLogin={isLogin} setIsLogin={setIsLogin} />
