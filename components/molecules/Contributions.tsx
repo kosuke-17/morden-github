@@ -21,14 +21,11 @@ type Props = {
 const Contributions: React.FC<Props> = (props) => {
   return (
     <>
-      <div>
-        {props.contributions.totalContributions} contributions in the last year
-      </div>
       <Card
         sx={{
           minWidth: 275,
           boxShadow: 10,
-          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          backgroundColor: "rgba(255, 255, 255, 0.7)",
         }}
       >
         <ScrollStyle>

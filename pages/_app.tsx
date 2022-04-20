@@ -22,6 +22,12 @@ const Body = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+// const BackgroundImage = styled.div`
+//   background-image: url("/github.png");
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// `;
 // const BodyLeft = styled.div`
 //   width: 30%;
 // `;

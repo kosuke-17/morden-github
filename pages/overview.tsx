@@ -6,6 +6,8 @@ import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
+import styles from "../styles/Overview.module.css";
+
 import type {
   ContributionType,
   OverviewType,
@@ -15,7 +17,10 @@ import type {
 //  styled-components
 // ----------------------------------------------
 const WholeStyle = styled.div`
-  margin: 10px 50px 0 0;
+  margin: 20px;
+`;
+const SubTitle = styled.div`
+  margin-left: 20px;
 `;
 
 // ----------------------------------------------
@@ -46,10 +51,10 @@ const overview: React.FC = ({
   const contributions: ContributionType =
     data.user.contributionsCollection.contributionCalendar;
   return (
-    <>
+    <div>
       {pinnedRipo.length === 0 ? (
         <>
-          <div>Recently repositories</div>
+          <SubTitle>Recently repositories</SubTitle>
           <WholeStyle>
             <Grid
               container
@@ -82,10 +87,13 @@ const overview: React.FC = ({
           </WholeStyle>
         </>
       )}
+      <SubTitle>
+        {contributions.totalContributions} contributions in the last year
+      </SubTitle>
       <WholeStyle>
         <Contributions contributions={contributions} />
       </WholeStyle>
-    </>
+    </div>
   );
 };
 

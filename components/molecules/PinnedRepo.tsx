@@ -35,7 +35,7 @@ const PinnedRepo: React.FC<Props> = (props) => {
           sx={{
             minWidth: 275,
             boxShadow: 10,
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backgroundColor: "rgba(255, 255, 255, 0.6)",
           }}
         >
           <CardContent>

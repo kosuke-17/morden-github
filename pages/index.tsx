@@ -4,49 +4,26 @@ import { gql } from "@apollo/client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import client from "../apollo-client";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import styled from "styled-components";
 
-// クエリ文用変数
-const GET_SAMPLE = gql`
-  {
-    viewer {
-      login
-      name
-      followers {
-        totalCount
-      }
-      following {
-        totalCount
-      }
-    }
-  }
+//  styled-components
+// ----------------------------------------------
+const WholeStyle = styled.div`
+  opacity: 0.1;
 `;
 
-// SSGでのデータ取得方法
-export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await client.query({
-    query: GET_SAMPLE,
-  });
-  // データ取得確認用console.log
-  // console.log(data);
+// ----------------------------------------------
 
-  return {
-    props: { data },
-  };
-};
-
-//   const { loading, error, data } = useQuery(GET_TOTALCONTRIBUTIONS);
-//   // クエリ実行中の表示
-//   if (loading) return <p>Loading ...</p>;
-//   // エラー発生時（レスポンスがないとき）の表示
-//   if (error) return <p>ERR!!!{error.message}</p>;
-//   console.log(data);
-
-const Home: NextPage = ({
-  data,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: NextPage = () => {
   const router = useRouter();
 
-  return <div className={styles.container}></div>;
+  return (
+    <></>
+    // <WholeStyle>
+    //   <Image src="/github.png" width="700" height="700" alt="背景" />
+    // </WholeStyle>
+  );
 };
 
 export default Home;
