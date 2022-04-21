@@ -40,6 +40,7 @@ const ButtonInterval = styled.div`
   margin-left: 10px;
 `;
 // ----------------------------------------------
+// search:repositories.tsxから渡されてきたsetSearchValue関数（useState）
 const SearchRepos = ({ search }: any) => {
   const changeValue = (e: React.SetStateAction<string>) => {
     search(e);

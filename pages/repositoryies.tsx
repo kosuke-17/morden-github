@@ -28,13 +28,17 @@ const repositoryies = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const userName = data.user.login;
   const allRepos = data.user.repositories.edges;
+  // 取得したリポジトリを自分のものだけに絞り込む
   const myrepos = allRepos.filter(
     (repo: { node: { owner: { login: String } } }) => {
       return repo.node.owner.login === userName;
     }
   );
+  
   const [repos, setRepos] = useState(myrepos);
   const [searchValue, setSearchValue] = useState("");
+
+  // 検索欄に入力された内容が変更される度にリポジトリを検索して絞り込む
   useEffect(() => {
     setRepos(
       myrepos.filter((repo: { node: { name: string } }) => {
