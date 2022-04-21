@@ -70,3 +70,37 @@ export const OVERVIEW_QUERY = gql`
 //     }
 //   }
 // `;
+export const REPOSITORIES_QUERY = gql`
+  {
+    user(login: "i-hidaka") {
+      id
+      login
+      name
+      repositories(last: 30, orderBy: { field: CREATED_AT, direction: DESC }) {
+        totalCount
+        edges {
+          node {
+            id
+            name
+            url
+            description
+            primaryLanguage {
+              name
+              color
+            }
+            updatedAt
+            isPrivate
+            isFork
+            isArchived
+            isMirror
+            isTemplate
+            stargazerCount
+            owner {
+              login
+            }
+          }
+        }
+      }
+    }
+  }
+`;
