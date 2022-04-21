@@ -25,7 +25,6 @@ const githubAuth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     client_secret: process.env.GITHUB_SECRET,
     code,
   };
-  // console.log("code: " + code);
 
   const githubToken = await axios
     .post("https://github.com/login/oauth/access_token", body, {
@@ -37,14 +36,24 @@ const githubAuth = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     });
   const accessToken = githubToken.access_token;
 
-  //
   if (accessToken) {
+    const githubName: string = await axios
+      .get("https://api.github.com/user", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => {
+        return res.data.login;
+      })
+      .catch((error) => {
+        console.error(`Error getting user from GitHub`);
+        throw error;
+      });
     res.setHeader("Set-Cookie", [
-      serialize("accessToken", accessToken, {
+      serialize("githubName", githubName, {
         path: "/",
       }),
     ]);
-    res.redirect(`http://localhost:3000`);
+    res.redirect(`http://localhost:3000/overview`);
   }
 };
 
