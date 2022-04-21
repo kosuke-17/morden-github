@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "@mui/material/Card";
-import { RepositoriesType } from "../utils/Types";
+import { RepositoriesType } from "../../utils/Types";
 import { ReportGmailerrorredOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import { CardContent, Grid, Typography } from "@mui/material";
@@ -26,7 +26,6 @@ const Repository = ({ repo }: Props) => {
     color: ${repo.node.primaryLanguage.color};
   `;
   // ----------------------------------------------
-  console.log(repo);
 
   return (
     <GlassStyle>

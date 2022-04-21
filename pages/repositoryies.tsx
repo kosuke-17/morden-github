@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import styled from "styled-components";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import client from "../apollo-client";
 import { SearchRepos } from "../components/molecules/index";
 import { REPOSITORIES_QUERY } from "../common/Query";
-import { Repository } from "../components/index";
+import { Repository } from "../components/molecules/index";
 import { RepositoriesType } from "../utils/Types";
 
 const Layout = styled.div`
@@ -27,16 +28,25 @@ const repositoryies = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const userName = data.user.login;
   const allRepos = data.user.repositories.edges;
-
-  const repos = allRepos.filter(
+  const myrepos = allRepos.filter(
     (repo: { node: { owner: { login: String } } }) => {
       return repo.node.owner.login === userName;
     }
   );
-  console.log(repos);
+  const [repos, setRepos] = useState(myrepos);
+  const [searchValue, setSearchValue] = useState("");
+  useEffect(() => {
+    setRepos(
+      myrepos.filter((repo: { node: { name: string } }) => {
+        return repo.node.name.toLowerCase().includes(searchValue.toLowerCase());
+      })
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
+
   return (
     <>
-      <SearchRepos></SearchRepos>
+      <SearchRepos search={setSearchValue}></SearchRepos>
       <Layout>
         {repos.map((repo: RepositoriesType) => {
           return <Repository key={repo.node.id} repo={repo}></Repository>;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { ButtonRepos } from "../atoms";
@@ -40,11 +40,19 @@ const ButtonInterval = styled.div`
   margin-left: 10px;
 `;
 // ----------------------------------------------
-const SearchRepos = () => {
+const SearchRepos = ({ search }: any) => {
+  const changeValue = (e: React.SetStateAction<string>) => {
+    search(e);
+  };
+
   return (
     <Layout>
       <InputLayout>
-        <SearchInput />
+        <SearchInput
+          onChange={(e) => {
+            changeValue(e.target.value);
+          }}
+        />
       </InputLayout>
       <ButtonLayout>
         <ButtonInterval>
