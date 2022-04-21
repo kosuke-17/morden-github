@@ -154,3 +154,22 @@ export type OverviewType = {
     };
   };
 };
+
+export type RepositoriesType = {
+  node: {
+    description: string;
+    id: string;
+    isArchived: boolean;
+    isFork: boolean;
+    isMirror: boolean;
+    isPrivate: boolean;
+    isTemplate: boolean;
+    name: string;
+    owner: { __typename: string; login: string };
+    primaryLanguage: { __typename: string; name: string; color: string };
+    stargazerCount: number;
+    updatedAt: Date;
+    url: string;
+    __typename: string;
+  };
+};
