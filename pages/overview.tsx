@@ -6,7 +6,6 @@ import client from "../apollo-client";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { OVERVIEW_QUERY } from "../common/Query";
 import styled from "styled-components";
-import styles from "../styles/Overview.module.css";
 
 import type {
   ContributionType,
@@ -79,7 +78,7 @@ const overview: React.FC = ({
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
               {pinnedRipo.map((repo: RepositoryType) => (
-                <Grid item xs={6} key={repo.id}>
+                <Grid item xs={12} md={6} key={repo.id}>
                   <PinnedRepo repo={repo} />
                 </Grid>
               ))}

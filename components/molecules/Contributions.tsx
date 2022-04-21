@@ -2,6 +2,7 @@ import { Box, CardContent } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import Card from "@mui/material/Card";
+
 import type {
   ContributionType,
   ContributionWeeksType,
@@ -28,8 +29,27 @@ const Contributions: React.FC<Props> = (props) => {
           backgroundColor: "rgba(255, 255, 255, 0.7)",
         }}
       >
-        <ScrollStyle>
-          <CardContent>
+        <ScrollStyle
+          style={{
+            scrollbarColor: "red yellow",
+          }}
+        >
+          <CardContent
+            style={{
+              display: "inline-block",
+            }}
+          >
+            {/* <svg width="100%" height="15">
+              <text x="40" y="12" fontSize="15">
+                Apr
+              </text>
+              <text x="70" y="12" fontSize="15">
+                May
+              </text>
+              <text x="145" y="12" fontSize="15">
+                Jun
+              </text>
+            </svg> */}
             <Box
               sx={{
                 display: "flex",
@@ -62,6 +82,7 @@ const Contributions: React.FC<Props> = (props) => {
                                 x="0"
                                 y="0"
                                 fill={`${day.color}`}
+                                data-date={`${day.date}`}
                               ></rect>
                             </svg>
                           </div>
@@ -72,12 +93,12 @@ const Contributions: React.FC<Props> = (props) => {
                 </>
               ))}
             </Box>
-            <br />
             <Box
               sx={{
+                marginTop: "10px",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-start",
+                justifyContent: "flex-end",
               }}
             >
               <div>Less</div>
