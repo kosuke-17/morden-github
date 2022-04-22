@@ -34,7 +34,14 @@ const repositoryies = ({
       return repo.node.owner.login === userName;
     }
   );
-  
+
+  // 言語の配列を作成する
+  let languages = [];
+  for (let repo of myrepos) {
+    languages.push(repo.node.primaryLanguage.name);
+  }
+  languages = Array.from(new Set(languages));
+
   const [repos, setRepos] = useState(myrepos);
   const [searchValue, setSearchValue] = useState("");
 
@@ -48,9 +55,83 @@ const repositoryies = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
+  let currentType = "";
+  let currentLanguage = "";
+  let currentSort = "";
+
+  console.log(myrepos);
+
+  const sort = (selected: string) => {
+    // 初期化
+    setRepos(myrepos);
+
+    if (
+      selected === "All" ||
+      selected === "Public" ||
+      selected === "Private" ||
+      selected === "Forks" ||
+      selected === "Archived" ||
+      selected === "Mirrors" ||
+      selected === "Templates"
+    ) {
+      currentType = selected;
+    } else if (
+      selected === "Last updated" ||
+      selected === "Name" ||
+      selected === "Stars"
+    ) {
+      currentLanguage = selected;
+    } else {
+      currentSort = selected;
+    }
+
+    
+    if (currentType === "Public") {
+      setRepos(
+        myrepos.filter((repo: { node: { isPrivate: boolean } }) => {
+          return repo.node.isPrivate === false;
+        })
+      );
+    } else if (currentType === "Private") {
+      setRepos(
+        myrepos.filter((repo: { node: { isPrivate: boolean } }) => {
+          return repo.node.isPrivate === true;
+        })
+      );
+    } else if (currentType === "Forks") {
+      setRepos(
+        myrepos.filter((repo: { node: { isFork: boolean } }) => {
+          return repo.node.isFork === true;
+        })
+      );
+    } else if (currentType === "Archived") {
+      setRepos(
+        myrepos.filter((repo: { node: { isArchived: boolean } }) => {
+          return repo.node.isArchived === true;
+        })
+      );
+    } else if (currentType === "Mirrors") {
+      setRepos(
+        myrepos.filter((repo: { node: { isMirror: boolean } }) => {
+          return repo.node.isMirror === true;
+        })
+      );
+    } else if (currentType === "Templates") {
+      setRepos(
+        myrepos.filter((repo: { node: { isTemplate: boolean } }) => {
+          return repo.node.isTemplate === true;
+        })
+      );
+    }
+  };
+
   return (
     <>
-      <SearchRepos search={setSearchValue}></SearchRepos>
+      <SearchRepos
+        search={setSearchValue}
+        languages={languages}
+        sort={sort}
+      ></SearchRepos>
       <Layout>
         {repos.map((repo: RepositoriesType) => {
           return <Repository key={repo.node.id} repo={repo}></Repository>;

@@ -50,7 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   } else {
     existToken = "";
   }
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   // pagesに存在しないと500エラー
   const getAccessToken = async () => {
     const result = await fetch("/api/githubAuth", {}).catch((err) =>

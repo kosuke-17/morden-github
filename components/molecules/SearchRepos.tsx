@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { ButtonRepos } from "../atoms";
+import { Public } from "@mui/icons-material";
 //  styled-components
 // ----------------------------------------------
 const Layout = styled.div`
@@ -40,11 +41,25 @@ const ButtonInterval = styled.div`
   margin-left: 10px;
 `;
 // ----------------------------------------------
+
 // search:repositories.tsxから渡されてきたsetSearchValue関数（useState）
-const SearchRepos = ({ search }: any) => {
+// language:言語一覧
+const SearchRepos = ({ search, languages ,sort}: any) => {
   const changeValue = (e: React.SetStateAction<string>) => {
     search(e);
   };
+
+  const typeContents = [
+    "All",
+    "Public",
+    "Private",
+    "Forks",
+    "Archived",
+    "Mirrors",
+    "Templates",
+  ];
+  const sortContents = ["Last updated", "Name", "Stars"];
+
 
   return (
     <Layout>
@@ -57,13 +72,25 @@ const SearchRepos = ({ search }: any) => {
       </InputLayout>
       <ButtonLayout>
         <ButtonInterval>
-          <ButtonRepos name="type▼"></ButtonRepos>
+          <ButtonRepos
+            title="type"
+            contents={typeContents}
+            sort={sort}
+          ></ButtonRepos>
         </ButtonInterval>
         <ButtonInterval>
-          <ButtonRepos name="language▼"></ButtonRepos>
+          <ButtonRepos
+            title="language"
+            contents={languages}
+            sort={sort}
+          ></ButtonRepos>
         </ButtonInterval>
         <ButtonInterval>
-          <ButtonRepos name="sort▼"></ButtonRepos>
+          <ButtonRepos
+            title="sort"
+            contents={sortContents}
+            sort={sort}
+          ></ButtonRepos>
         </ButtonInterval>
       </ButtonLayout>
     </Layout>
