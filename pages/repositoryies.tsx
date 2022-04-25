@@ -55,6 +55,7 @@ const repositoryies = ({
 
   useEffect(() => {
     setRepos(searchedRepos);
+    sort(currentLanguage.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
