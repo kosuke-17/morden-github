@@ -50,7 +50,7 @@ const SearchRepos = ({ search, languages ,sort}: any) => {
   };
 
   const typeContents = [
-    "All",
+    "AllType",
     "Public",
     "Private",
     "Forks",

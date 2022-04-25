@@ -76,7 +76,10 @@ export const REPOSITORIES_QUERY = gql`
       id
       login
       name
-      repositories(last: 30, orderBy: { field: CREATED_AT, direction: DESC }) {
+      repositories(
+        last: 100
+        orderBy: { field: CREATED_AT, direction: DESC }
+      ) {
         totalCount
         edges {
           node {
