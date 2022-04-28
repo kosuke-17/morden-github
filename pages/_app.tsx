@@ -6,7 +6,7 @@ import ProfileS from "../components/ProfileS";
 import { NavBar } from "../components";
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 import { Grid } from "@mui/material";
 
@@ -45,12 +45,22 @@ const UnderLine = styled.div`
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const cookies = parseCookies();
   let existToken = "";
-  if (cookies.accessToken) {
-    existToken = cookies.accessToken;
+  if (cookies.githubName) {
+    existToken = cookies.githubName;
   } else {
     existToken = "";
   }
-  const [isLogin, setIsLogin] = useState(true);
+
+  const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    if (cookies.accessToken) {
+      const wasLogin = () => {
+        setIsLogin(true);
+      };
+      wasLogin();
+    }
+  });
+
   // pagesに存在しないと500エラー
   const getAccessToken = async () => {
     const result = await fetch("/api/githubAuth", {}).catch((err) =>

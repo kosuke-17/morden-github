@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const OVERVIEW_QUERY = gql`
   {
-    user(login: "shiibawataru") {
+    user(login: "kosuke-17") {
       repositories(last: 6) {
         nodes {
           id

@@ -1,6 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { parseCookies, setCookie, destroyCookie } from "nookies";
+import { parseCookies } from "nookies";
 
 // エンドポイント
 const httpLink = createHttpLink({
@@ -8,16 +8,13 @@ const httpLink = createHttpLink({
 });
 // Parse
 const cookies = parseCookies();
-let githubAccessToken: string;
-if (cookies) {
-  githubAccessToken = `Bearer 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`;
-  // githubAccessToken = `Bearer ${cookies.accessToken}`;
-}
+let githubAccessToken = `Bearer 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`;
+
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
+      authorization: githubAccessToken,
     },
   };
 });
