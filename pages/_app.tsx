@@ -50,6 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   } else {
     existToken = "";
   }
+
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     if (cookies.accessToken) {
