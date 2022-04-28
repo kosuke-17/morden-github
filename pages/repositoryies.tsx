@@ -7,6 +7,7 @@ import { SearchRepos } from "../components/molecules/index";
 import { REPOSITORIES_QUERY } from "../common/Query";
 import { Repository } from "../components/molecules/index";
 import { RepositoriesType } from "../utils/Types";
+import { Pagination, Stack } from "@mui/material";
 
 const Layout = styled.div`
   margin-top: 10px;
@@ -14,6 +15,9 @@ const Layout = styled.div`
   @media screen and (max-width: 940px) {
     margin-left: 50px;
   }
+`;
+const PaginationLayout = styled.div`
+  margin: 30px 0 50px 0;
 `;
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -34,6 +38,21 @@ const repositoryies = ({
       return repo.node.owner.login === userName;
     }
   );
+  // 既に絞り込まれている値を保持する変数（レンダリングさせないようにuseRef）
+  const searched = useRef(myrepos);
+
+  // ページング処理用ボタン
+  const totalCount = searched.current.length;
+
+  const pageCount = useRef(0);
+  pageCount.current = Math.floor(totalCount / 10) + 1;
+  if (totalCount % 10 === 0) {
+    pageCount.current - 1;
+  }
+
+  const pagination = (page: number) => {
+    setRepos(searched.current.slice(page * 10 - 10, page * 10));
+  };
 
   // 言語の配列を作成する
   let languages: Array<string> = ["AllLanguage"];
@@ -44,9 +63,6 @@ const repositoryies = ({
 
   const [repos, setRepos] = useState(myrepos);
   const [searchValue, setSearchValue] = useState("");
-
-  // 既に絞り込まれている値を保持する変数（レンダリングさせないようにuseRef）
-  const searched = useRef(myrepos);
 
   // 検索欄に入力された内容が変更される度にリポジトリを検索して絞り込む
   const searchedRepos = myrepos.filter((repo: { node: { name: string } }) => {
@@ -97,168 +113,180 @@ const repositoryies = ({
         currentLanguage.current === "AllLanguage"
       ) {
         setRepos(searchedRepos);
+        searched.current = searchedRepos;
       } else if (
         currentType.current === "AllType" &&
         currentLanguage.current === language
       ) {
-        setRepos(
-          // setRepos(
-          searchedRepos.filter(
-            (repo: { node: { primaryLanguage: { name: string } } }) => {
-              return repo.node.primaryLanguage.name === language;
-            }
-          )
+        const result = searchedRepos.filter(
+          (repo: { node: { primaryLanguage: { name: string } } }) => {
+            return repo.node.primaryLanguage.name === language;
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Public" &&
         currentLanguage.current === language
       ) {
-        setRepos(
-          searchedRepos.filter(
-            (repo: {
-              node: { isPrivate: boolean; primaryLanguage: { name: string } };
-            }) => {
-              return (
-                repo.node.isPrivate === false &&
-                repo.node.primaryLanguage.name === language
-              );
-            }
-          )
+        const result = searchedRepos.filter(
+          (repo: {
+            node: { isPrivate: boolean; primaryLanguage: { name: string } };
+          }) => {
+            return (
+              repo.node.isPrivate === false &&
+              repo.node.primaryLanguage.name === language
+            );
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Private" &&
         currentLanguage.current === language
       ) {
-        setRepos(
-          searchedRepos.filter(
-            (repo: {
-              node: { isPrivate: boolean; primaryLanguage: { name: string } };
-            }) => {
-              return (
-                repo.node.isPrivate === true &&
-                repo.node.primaryLanguage.name === language
-              );
-            }
-          )
+        const result = searchedRepos.filter(
+          (repo: {
+            node: { isPrivate: boolean; primaryLanguage: { name: string } };
+          }) => {
+            return (
+              repo.node.isPrivate === true &&
+              repo.node.primaryLanguage.name === language
+            );
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Forks" &&
         currentLanguage.current === language
       ) {
-        setRepos(
-          searchedRepos.filter(
-            (repo: {
-              node: { isFork: boolean; primaryLanguage: { name: string } };
-            }) => {
-              return (
-                repo.node.isFork === true &&
-                repo.node.primaryLanguage.name === language
-              );
-            }
-          )
+        const result = searchedRepos.filter(
+          (repo: {
+            node: { isFork: boolean; primaryLanguage: { name: string } };
+          }) => {
+            return (
+              repo.node.isFork === true &&
+              repo.node.primaryLanguage.name === language
+            );
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Mirrors" &&
         currentLanguage.current === language
       ) {
-        setRepos(
-          searchedRepos.filter(
-            (repo: {
-              node: { isMirror: boolean; primaryLanguage: { name: string } };
-            }) => {
-              return (
-                repo.node.isMirror === true &&
-                repo.node.primaryLanguage.name === language
-              );
-            }
-          )
+        const result = searchedRepos.filter(
+          (repo: {
+            node: { isMirror: boolean; primaryLanguage: { name: string } };
+          }) => {
+            return (
+              repo.node.isMirror === true &&
+              repo.node.primaryLanguage.name === language
+            );
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Archived" &&
         currentLanguage.current === language
       ) {
-        setRepos(
-          searchedRepos.filter(
-            (repo: {
-              node: { isArchived: boolean; primaryLanguage: { name: string } };
-            }) => {
-              return (
-                repo.node.isArchived === true &&
-                repo.node.primaryLanguage.name === language
-              );
-            }
-          )
+        const result = searchedRepos.filter(
+          (repo: {
+            node: { isArchived: boolean; primaryLanguage: { name: string } };
+          }) => {
+            return (
+              repo.node.isArchived === true &&
+              repo.node.primaryLanguage.name === language
+            );
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Templates" &&
         currentLanguage.current === language
       ) {
-        setRepos(
-          searchedRepos.filter(
-            (repo: {
-              node: { isTemplate: boolean; primaryLanguage: { name: string } };
-            }) => {
-              return (
-                repo.node.isTemplate === true &&
-                repo.node.primaryLanguage.name === language
-              );
-            }
-          )
+        const result = searchedRepos.filter(
+          (repo: {
+            node: { isTemplate: boolean; primaryLanguage: { name: string } };
+          }) => {
+            return (
+              repo.node.isTemplate === true &&
+              repo.node.primaryLanguage.name === language
+            );
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Public" &&
         currentLanguage.current === "AllLanguage"
       ) {
-        setRepos(
-          searchedRepos.filter((repo: { node: { isPrivate: boolean } }) => {
+        const result = searchedRepos.filter(
+          (repo: { node: { isPrivate: boolean } }) => {
             return repo.node.isPrivate === false;
-          })
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Private" &&
         currentLanguage.current === "AllLanguage"
       ) {
-        setRepos(
-          searchedRepos.filter((repo: { node: { isPrivate: boolean } }) => {
+        const result = searchedRepos.filter(
+          (repo: { node: { isPrivate: boolean } }) => {
             return repo.node.isPrivate === true;
-          })
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Forks" &&
         currentLanguage.current === "AllLanguage"
       ) {
-        setRepos(
-          searchedRepos.filter((repo: { node: { isFork: boolean } }) => {
+        const result = searchedRepos.filter(
+          (repo: { node: { isFork: boolean } }) => {
             return repo.node.isFork === true;
-          })
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Mirrors" &&
         currentLanguage.current === "AllLanguage"
       ) {
-        setRepos(
-          searchedRepos.filter((repo: { node: { isMirror: boolean } }) => {
+        const result = searchedRepos.filter(
+          (repo: { node: { isMirror: boolean } }) => {
             return repo.node.isMirror === true;
-          })
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Archived" &&
         currentLanguage.current === "AllLanguage"
       ) {
-        setRepos(
-          searchedRepos.filter((repo: { node: { isArchived: boolean } }) => {
+        const result = searchedRepos.filter(
+          (repo: { node: { isArchived: boolean } }) => {
             return repo.node.isArchived === true;
-          })
+          }
         );
+        setRepos(result);
+        searched.current = result;
       } else if (
         currentType.current === "Templates" &&
         currentLanguage.current === "AllLanguage"
       ) {
-        setRepos(
-          searchedRepos.filter((repo: { node: { isTemplate: boolean } }) => {
+        const result = searchedRepos.filter(
+          (repo: { node: { isTemplate: boolean } }) => {
             return repo.node.isTemplate === true;
-          })
+          }
         );
+        setRepos(result);
+        searched.current = result;
       }
     }
     // 日付での並び替え
@@ -311,6 +339,19 @@ const repositoryies = ({
           return <Repository key={repo.node.id} repo={repo}></Repository>;
         })}
       </Layout>
+      <PaginationLayout>
+        {totalCount >= 10 ? (
+          <Pagination
+            onChange={(e, page) => {
+              pagination(page);
+            }}
+            count={pageCount.current}
+            variant="outlined"
+            shape="rounded"
+            size="large"
+          />
+        ) : null}
+      </PaginationLayout>
     </>
   );
 };
